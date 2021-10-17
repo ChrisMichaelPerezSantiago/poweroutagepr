@@ -8,10 +8,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
       - name: Running
         run: |
           npm install
           npm run start:run
+
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$(if [ -n "$(git status --porcelain)" ]; then echo "true"; else echo "false"; fi)
+
+      - name: Update changes in GitHub repository
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --global user.name 'ChrisMichaelPerezSantiago' 
+          git config --global user.email 'chris.perez@upr.edu'
           git add .
-          git commit -m "update: new csv data added."
-          git push origin master
+          git commit -m 'update: csv file added'
+          git push
