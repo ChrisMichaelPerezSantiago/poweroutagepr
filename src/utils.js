@@ -27,7 +27,24 @@ const toLocaleTimeString = (datetime) => {
   return datetime;
 };
 
+const toCSV = (obj, header) => {
+  if (header) obj.unshift(header);
+
+  const array = typeof obj != "object" ? JSON.parse(obj) : obj;
+  let str = "";
+  for (let i = 0; i < array.length; i++) {
+    let line = "";
+    for (let index in array[i]) {
+      if (line != "") line += ",";
+      line += array[i][index];
+    }
+    str += line + "\r\n";
+  }
+  return str;
+};
+
 module.exports = {
   renameKey,
   toLocaleTimeString,
+  toCSV,
 };
