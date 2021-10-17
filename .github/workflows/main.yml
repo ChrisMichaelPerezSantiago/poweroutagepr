@@ -1,7 +1,5 @@
 name: PoweroutagePR
 on:
-  branches:
-    - master
   schedule:
     - cron: "10 * * * *"
 jobs:
