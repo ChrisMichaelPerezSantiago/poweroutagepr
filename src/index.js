@@ -96,17 +96,26 @@ const dataToCSV = async () => {
     .trim()
     .replace(new RegExp("/", "g"), "-");
 
-  const path = `csv/${fileName}`;
+  const path = `csv/${json.header[0].LastUpdated.split(",")[0]
+    .trim()
+    .replace(new RegExp("/", "g"), "-")}`;
 
-  fs.exists(path, function (isExist) {
-    if (isExist) {
-      console.error("Path Exist:", path);
-    } else {
-      fs.appendFile(path, csv, (err) => {
-        console.log(csv);
-        if (err) throw err;
-      });
-    }
+  const fullPath = `csv/${json.header[0].LastUpdated.split(",")[0]
+    .trim()
+    .replace(new RegExp("/", "g"), "-")}/${fileName}`;
+
+  fs.mkdir(path, { recursive: true }, (err) => {
+    if (err) throw err;
+    fs.exists(fullPath, function (isExist) {
+      if (isExist) {
+        console.error("Path Exist:", fullPath);
+      } else {
+        fs.appendFile(fullPath, csv, (err) => {
+          console.log(csv);
+          if (err) throw err;
+        });
+      }
+    });
   });
 };
 
