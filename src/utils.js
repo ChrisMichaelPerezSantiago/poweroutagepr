@@ -26,7 +26,10 @@ const toLocaleTimeString = (datetime) => {
   datetime = datetime.toLocaleTimeString("en-us", options);
   return datetime;
 };
-
+/**
+ * @param  {Object} obj
+ * @param  {Object} header
+ */
 const toCSV = (obj, header) => {
   if (header) obj.unshift(header);
 

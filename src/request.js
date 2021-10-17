@@ -3,6 +3,9 @@ const {
   flexFetch: { flexF, responseLookup },
 } = require("./common");
 
+/**
+ * @param  {String} url
+ */
 module.exports = (url) => {
   return new Promise(async (resolve, reject) => {
     try {
