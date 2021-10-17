@@ -3,7 +3,7 @@ const {
   cheerio: { load },
   tabletojson,
 } = require("./common");
-const { renameKey, toLocaleTimeString } = require("./utils");
+const { renameKey, toLocaleTimeString, toCSV } = require("./utils");
 
 const getDataByRegion = async () => {
   const res = await request(`https://poweroutage.us/area/utility/1489`);
@@ -82,6 +82,20 @@ const getDataByRegion = async () => {
   };
 };
 
+const dataToCSV = async () => {
+  const json = await getDataByRegion();
+  const header = {
+    County: "County",
+    CustomersTracked: "Customers Tracked",
+    CustomersOut: "Customers Out",
+  };
+
+  const csv = toCSV(json.table, header).trim();
+
+  return csv;
+};
+
 module.exports = {
   getDataByRegion,
+  dataToCSV,
 };
