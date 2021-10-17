@@ -1,5 +1,6 @@
 name: PoweroutagePR
 on:
+  branches: [master]
   schedule:
     - cron: "10 * * * *"
 jobs:
@@ -8,6 +9,5 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Running
-        run: |
-          npm install
-          npm run start:run
+      - run: npm install
+      - run: npm run start:run
