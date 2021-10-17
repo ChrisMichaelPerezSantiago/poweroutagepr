@@ -5,7 +5,7 @@ const {
 } = require("./common");
 const { renameKey, toLocaleTimeString } = require("./utils");
 
-const getMunicipalitiesIds = async () => {
+const getDataByRegion = async () => {
   const res = await request(`https://poweroutage.us/area/utility/1489`);
   const $ = load(res);
   const html = $.html();
@@ -83,5 +83,5 @@ const getMunicipalitiesIds = async () => {
 };
 
 module.exports = {
-  getMunicipalitiesIds,
+  getDataByRegion,
 };
