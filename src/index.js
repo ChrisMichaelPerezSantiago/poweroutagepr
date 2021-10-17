@@ -1,4 +1,5 @@
 const request = require("./request");
+const fs = require("fs");
 const {
   cheerio: { load },
   tabletojson,
@@ -72,8 +73,8 @@ const getDataByRegion = async () => {
 
   table = table[0].map((prop) => ({
     County: prop.County,
-    CustomersTracked: prop.CustomersTracked,
-    CustomersOut: prop.CustomersOut,
+    CustomersTracked: parseInt(prop.CustomersTracked.replace(/\,/g, ""), 10),
+    CustomersOut: parseInt(prop.CustomersOut.replace(/\,/g, ""), 10),
   }));
 
   return {
@@ -89,10 +90,24 @@ const dataToCSV = async () => {
     CustomersTracked: "Customers Tracked",
     CustomersOut: "Customers Out",
   };
-
   const csv = toCSV(json.table, header).trim();
 
-  return csv;
+  const fileName = (json.header[0].LastUpdated + ".csv" || "export.csv")
+    .trim()
+    .replace(new RegExp("/", "g"), "-");
+
+  const path = `csv/${fileName}`;
+
+  fs.exists(path, function (isExist) {
+    if (isExist) {
+      console.error("Path Exist:", path);
+    } else {
+      fs.appendFile(path, csv, (err) => {
+        console.log(csv);
+        if (err) throw err;
+      });
+    }
+  });
 };
 
 module.exports = {
