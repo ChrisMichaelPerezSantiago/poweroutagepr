@@ -9,6 +9,11 @@ const renameKey = (obj, old_key, new_key) => {
   }
 };
 
+/**
+ *
+ * @param {Date} datetime
+ * @returns
+ */
 const toLocaleTimeString = (datetime) => {
   const options = {
     year: "numeric",
