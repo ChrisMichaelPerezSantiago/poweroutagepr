@@ -25,6 +25,8 @@ jobs:
       - name: Update changes in GitHub repository
         if: steps.git-check.outputs.modified == 'true'
         run: |
+          git fetch
+          git pull
           git config --global user.name 'ChrisMichaelPerezSantiago' 
           git config --global user.email 'chris.perez@upr.edu'
           git add .
