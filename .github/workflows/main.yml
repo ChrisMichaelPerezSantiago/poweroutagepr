@@ -14,4 +14,4 @@ jobs:
           npm run start:run
           git add .
           git commit -m "update: new csv data added."
-          git push origin master
+          git push -u origin master
