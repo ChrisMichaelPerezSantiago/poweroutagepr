@@ -1,0 +1,17 @@
+name: PoweroutagePR
+
+on:
+  schedule:
+    - cron: "10 * * * *"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Running
+        run: |
+          npm install
+          npm run start:run
+          git add .
+          git commit -m "update: new csv data added."
+          git push origin master
