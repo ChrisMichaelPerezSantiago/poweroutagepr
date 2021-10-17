@@ -91,18 +91,19 @@ const dataToCSV = async () => {
     CustomersOut: "Customers Out",
   };
   const csv = toCSV(json.table, header).trim();
+  const re = new RegExp("/", "g");
 
   const fileName = (json.header[0].LastUpdated + ".csv" || "export.csv")
     .trim()
-    .replace(new RegExp("/", "g"), "-");
+    .replace(re, "-");
 
   const path = `csv/${json.header[0].LastUpdated.split(",")[0]
     .trim()
-    .replace(new RegExp("/", "g"), "-")}`;
+    .replace(re, "-")}`;
 
   const fullPath = `csv/${json.header[0].LastUpdated.split(",")[0]
     .trim()
-    .replace(new RegExp("/", "g"), "-")}/${fileName}`;
+    .replace(re, "-")}/${fileName}`;
 
   fs.mkdir(path, { recursive: true }, (err) => {
     if (err) throw err;
