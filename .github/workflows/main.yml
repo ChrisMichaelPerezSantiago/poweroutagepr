@@ -1,16 +1,15 @@
 name: PoweroutagePR
 on:
-  push:
-    branches:
-      - master
+  branches:
+    - master
   schedule:
-    - cron: '10 * * * *'
+    - cron: "10 * * * *"
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Running
-      run: |
-        npm install
-        npm run start:run
+      - uses: actions/checkout@v1
+      - name: Running
+        run: |
+          npm install
+          npm run start:run
